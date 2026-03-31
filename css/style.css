@@ -31,19 +31,36 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     user-select: none;
+}
+
+/* CUSTOM SCROLLBAR FOR PREMIUM FEEL */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 #game-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
 }
 
 .screen {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+    padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
