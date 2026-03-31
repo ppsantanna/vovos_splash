@@ -1,0 +1,438 @@
+/* CSS PREMIUM - FORCA MEMORIOSA */
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary-color: #fbbf24;
+    --danger-color: #ef4444;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(255, 255, 255, 0.08); /* Efeito Vidro */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --backdrop-blur: blur(12px);
+    
+    /* Variáveis Iniciais de Escala (Serao injetadas dinamicamente via JS) */
+    --base-font-size: 16px;
+    --unit-size: 1rem;
+    --key-size: 64px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+#game-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* GLASSMORPHISM UTILITY */
+.glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* HERO START SCREEN */
+header.hero-container {
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-logo {
+    max-width: 100%;
+    max-height: 300px;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+
+.hero-subtitle {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* NAV BUTTONS */
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 90%;
+    max-width: 450px;
+}
+
+.btn {
+    padding: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    backdrop-filter: var(--backdrop-blur);
+}
+
+.btn-glass:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: white;
+}
+
+.secondary-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* GAMEPLAY UI */
+#game-main-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+#game-graphics {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-image {
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* HUD */
+#hud-info {
+    padding: 18px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.hint-label {
+    color: var(--secondary-color);
+    font-weight: 800;
+}
+
+#hint-text {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.attempts-container {
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.attempts-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+.attempts-value {
+    color: var(--danger-color);
+    font-size: 1.4rem;
+}
+
+#word-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 12px;
+    font-size: 3rem;
+    letter-spacing: 0.4rem; /* Reduzido levemente para 13 letras */
+    font-weight: 800;
+    color: var(--primary-color);
+    max-width: 100%;
+}
+
+/* KEYBOARD */
+#virtual-keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 800px;
+    padding: 1rem;
+}
+
+.key-btn {
+    cursor: pointer;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: white;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.2s;
+    /* Tamanho e fonte passados via JS para escala interna */
+}
+
+.key-btn:active {
+    background: white;
+    color: var(--primary-color);
+}
+
+.key-btn.used {
+    opacity: 0.3;
+    pointer-events: none;
+    transform: scale(0.9);
+}
+
+/* OVERLAYS & MODALS */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+.modal-card, .result-card {
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.modal-header h2, .result-card h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem 0;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.modal-footer, .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* CONFIGURATION ITEMS */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.setting-info {
+    text-align: left;
+}
+
+.setting-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+.setting-hint {
+    color: var(--text-muted);
+}
+
+.scale-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type=range] {
+    width: 15vw;
+}
+
+#scale-label {
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* TOGGLE */
+.toggle-switch {
+    width: 70px;
+    height: 38px;
+    position: relative;
+    display: inline-block;
+}
+
+.toggle-switch input { display: none; }
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top:0; left:0; right:0; bottom:0;
+    background-color: var(--glass-bg);
+    transition: 0.4s;
+    border-radius: 34px;
+    border: 1px solid var(--glass-border);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 30px; width: 30px;
+    left: 4px; bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider { background-color: var(--primary-color); }
+input:checked + .toggle-slider:before { transform: translateX(32px); }
+
+/* HELP AREA */
+#help-text-content {
+    text-align: left;
+    white-space: pre-wrap;
+    line-height: 1.8;
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    background: var(--secondary-color);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+    animation: fadeInOut 2.5s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity:0; transform: translateY(20px); }
+    10% { opacity:1; transform: translateY(0); }
+    90% { opacity:1; transform: translateY(0); }
+    100% { opacity:0; transform: translateY(-20px); }
+}
+
+/* RESPONSIBLE LANDSCAPE ORIENTATION */
+@media screen and (orientation: landscape) {
+    #gameplay-screen {
+        flex-direction: row;
+        padding: 50px;
+    }
+    
+    #game-main-area {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+    
+    #game-ui {
+        width: 50%;
+    }
+    
+    .game-logo {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-logo { max-height: 180px; }
+    .hero-container { padding: 1.5rem; }
+}
+
+/* CLASSES DE ESCALA INJETADAS JS */

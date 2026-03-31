@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Forca Memoriosa - Edição Premium</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        
+        <!-- Tela de Apresentação -->
+        <section id="start-screen" class="screen">
+            <header class="hero-container glass">
+                <img src="images/logo.png" alt="Logo Forca Memoriosa" class="game-logo">
+                <p class="hero-subtitle">Exercite sua memória com diversão</p>
+            </header>
+            
+            <nav class="menu-nav">
+                <button id="btn-start" class="btn btn-primary btn-giant" aria-label="Iniciar Jogo">START</button>
+                <div class="secondary-btns">
+                    <button id="btn-help" class="btn btn-glass" aria-label="Abrir Ajuda">AJUDA</button>
+                    <button id="btn-settings" class="btn btn-glass" aria-label="Abrir Configurações">CONFIGURAÇÕES</button>
+                </div>
+            </nav>
+        </section>
+
+        <!-- Gameplay (Canvas + HUD) -->
+        <main id="gameplay-screen" class="screen hidden">
+            <button id="btn-back-menu" class="btn-top-left" aria-label="Voltar Menu">← MENU</button>
+            
+            <div id="game-main-area">
+                <div id="game-graphics" class="glass">
+                    <img id="game-image" src="images/acerto.png" alt="Personagem">
+                </div>
+
+                <div id="game-ui">
+                    <div id="hud-info" class="glass">
+                        <p class="hint-label">DICA:</p>
+                        <p id="hint-text">CARREGANDO...</p>
+                        <div class="attempts-container">
+                            <span class="attempts-label">TENTATIVAS:</span>
+                            <span id="attempts-count" class="attempts-value">0</span>
+                        </div>
+                        <div id="word-display-container">
+                            <span id="word-display">_ _ _ _</span>
+                        </div>
+                    </div>
+
+                    <div id="keyboard-container">
+                        <!-- Botões ABCD gerados via JS para escala interna -->
+                        <div id="virtual-keyboard"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Overlay de Resultado -->
+            <div id="modal-game-over" class="overlay hidden">
+                <div class="result-card glass">
+                    <h2 id="game-over-title">VITÓRIA!</h2>
+                    <p id="game-over-msg">Muito bem! Sua memória está afiada.</p>
+                    <div class="result-actions">
+                        <button id="btn-next-word" class="btn btn-primary">PRÓXIMA</button>
+                        <button id="btn-exit-game" class="btn btn-glass">SAIR</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal AJUDA -->
+        <div id="modal-help" class="modal-overlay hidden" role="dialog" aria-modal="true">
+            <div class="modal-card glass">
+                <header class="modal-header">
+                    <h2>AJUDA</h2>
+                </header>
+                <div id="help-scroll-area" class="modal-body" tabindex="0">
+                    <div id="help-text-content">Lendo arquivos...</div>
+                </div>
+                <footer class="modal-footer">
+                    <button id="btn-copy-help" class="btn btn-glass">COPIAR</button>
+                    <button id="btn-close-help" class="btn btn-primary">FECHAR</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Modal CONFIGURAÇÕES -->
+        <div id="modal-settings" class="modal-overlay hidden" role="dialog" aria-modal="true">
+            <div class="modal-card glass">
+                <header class="modal-header">
+                    <h2>CONFIGURAÇÕES</h2>
+                </header>
+                <div class="modal-body">
+                    
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <label class="setting-title">Tamanho dos elementos</label>
+                            <p class="setting-hint">Aumente se tiver dificuldade para ver os botões.</p>
+                        </div>
+                        <div class="scale-controls">
+                            <button id="btn-scale-down" class="btn-circle">−</button>
+                            <div class="slider-wrapper">
+                                <input type="range" id="scale-slider" min="0.7" max="1.6" step="0.1" value="1.0">
+                                <span id="scale-label">1.0x</span>
+                            </div>
+                            <button id="btn-scale-up" class="btn-circle">+</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <label class="setting-title">Som</label>
+                            <p class="setting-hint">Ativa/Desativa efeitos acerto/erro.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="sound-toggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <button id="btn-restore-defaults" class="btn btn-danger">RESTAURAR PADRÕES</button>
+                </div>
+                <footer class="modal-footer">
+                    <button id="btn-close-settings" class="btn btn-primary">FECHAR</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Feedback Visual (Toast) -->
+        <div id="toast" class="toast hidden">Preferência salva</div>
+
+    </div>
+
+    <!-- Áudios -->
+    <audio id="audio-hit" src="sons/acerto.mp3" preload="auto"></audio>
+    <audio id="audio-miss" src="sons/erro.mp3" preload="auto"></audio>
+
+    <script src="data/words.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
