@@ -103,24 +103,18 @@ function loadPreferences() {
 }
 
 async function loadWords() {
-    try {
-        const response = await fetch('data/words.json');
-        if (!response.ok) throw new Error("Erro ao carregar banco de palavras via fetch");
-        state.wordBank = await response.json();
-    } catch (err) {
-        console.warn("Navegador bloqueou fetch local. Usando words.js como backup de segurança.");
-        // Fallback: Tenta usar a variável global carregada via <script src="data/words.js">
-        // Se ela também falhar (ex: arquivo não existe), usa um banco interno estático.
-        if (typeof WORLD_BANK_DATA !== 'undefined') {
-            state.wordBank = WORLD_BANK_DATA;
-        } else {
-            state.wordBank = [
-                { word: "AMOR", hint: "Sentimento de afeto e carinho" },
-                { word: "CASA", hint: "Lugar onde moramos" }
-            ];
-        }
+    // Agora o jogo usa DIRETAMENTE o que estiver no data/words.js (carregado via script no index.html)
+    if (typeof WORLD_BANK_DATA !== 'undefined') {
+        state.wordBank = WORLD_BANK_DATA;
+        console.log("Palavras carregadas com sucesso via words.js:", state.wordBank.length, "itens.");
+    } else {
+        console.error("ERRO: O arquivo data/words.js não foi carregado corretamente ou a variável WORLD_BANK_DATA não existe.");
+        // Fallback de emergência caso o arquivo falhe completamente
+        state.wordBank = [
+            { word: "AMOR", hint: "Sentimento de afeto e carinho" },
+            { word: "CASA", hint: "Lugar onde moramos" }
+        ];
     }
-    console.log("Banco de palavras carregado com sucesso:", state.wordBank.length, "itens.");
 }
 
 function savePreferences(showMsg = true) {
